@@ -1,1 +1,9 @@
-[{"title":"A Book","imageUrl":"https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg","description":"This is an awesome book!","price":"19"}]
+[
+  {
+    "id": "12345667",
+    "title": "Akhilesh",
+    "imageUrl": "https://cdn.kobo.com/book-images/29e4026a-1b3c-4661-b56e-2fb44174ef33/353/569/90/False/mastering-c-programming.jpg",
+    "description": "Aa expensive guide to the world of C++ programming",
+    "price": "200"
+  }
+]
