@@ -1,9 +1,1 @@
-[
-  {
-    "id": "12345667",
-    "title": "Akhilesh",
-    "imageUrl": "https://cdn.kobo.com/book-images/29e4026a-1b3c-4661-b56e-2fb44174ef33/353/569/90/False/mastering-c-programming.jpg",
-    "description": "Aa expensive guide to the world of C++ programming",
-    "price": "200"
-  }
-]
+[{"id":"12345667","title":"Akhilesh","imageUrl":"https://cdn.kobo.com/book-images/29e4026a-1b3c-4661-b56e-2fb44174ef33/353/569/90/False/mastering-c-programming.jpg","description":"Aa expensive guide to the world of C++ programming","price":"200"},{"title":"","imageUrl":"","description":"","price":"","id":"0.4200390688952258"}]
