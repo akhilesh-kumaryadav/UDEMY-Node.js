@@ -1,4 +1,17 @@
-const Product = require("../models/product");
+const mongoConnect = require("../util/database");
+
+class Product {
+  constructor(title, price, description, imageUrl){
+    this.title = title;
+    this.price = price;
+    this.description = description;
+    this.imageUrl = imageUrl;
+  }
+
+  save(){
+    
+  }
+}
 
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
