@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const errorController = require("./controllers/error");
-const User = require("./models/user");
+// const User = require("./models/user");
 
 const app = express();
 
@@ -18,14 +18,14 @@ const shopRoutes = require("./routes/shop");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-  User.findById("65b3822171d785c9b2d4c737")
-    .then((user) => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
-      next();
-    })
-    .catch((err) => console.log(err));
-});
+// app.use((req, res, next) => {
+//   User.findById("65b3822171d785c9b2d4c737")
+//     .then((user) => {
+//       req.user = new User(user.name, user.email, user.cart, user._id);
+//       next();
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -34,9 +34,10 @@ app.use(errorController.get404);
 
 mongoose
   .connect(
-    "mongodb+srv://Akhilesh:Akhilesh@atlascluster.ihvyqmt.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://Akhilesh:Akhilesh@atlascluster.ihvyqmt.mongodb.net/shop?retryWrites=true&w=majority"
   )
   .then((result) => {
+    console.log("Mongoose Connected");
     app.listen(3000);
   })
   .catch((err) => console.log(err));

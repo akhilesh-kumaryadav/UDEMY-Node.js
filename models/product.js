@@ -21,6 +21,7 @@ const productSchema = new Schema({
   },
 });
 
+module.exports = mongoose.model('Product', productSchema);
 
 // const mongodb = require("mongodb");
 // const getDb = require("../util/database").getDb;
@@ -93,4 +94,4 @@ const productSchema = new Schema({
 //   }
 // }
 
-module.exports = Product;
+//module.exports = Product;
