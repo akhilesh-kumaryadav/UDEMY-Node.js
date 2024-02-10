@@ -1,16 +1,16 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const nodemailer = require("nodemailer");
-const sendgridTransport = require("nodemailer-sendgrid-transport");
 
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key:
-        "SG.ir@lZRLOSaGxAa2RFbIAXA.06uJhFKcW-T1VeVIVETYtxZDHmcgS1-0QJ4fkwGZcJI",
-    },
-  })
-);
+const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: "khilgrinder10bill@gmail.com",
+    pass: "xsmtpsib-5b131831293fc86ae6df339f8214612b90da6db05ef0bf63edbd6b52e7d8e08e-LvyB9tQZsr4n6YJp",
+  },
+});
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash("error");
@@ -39,7 +39,6 @@ exports.getSignup = (req, res, next) => {
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Signup",
-    isAuthenticated: false,
     errorMessage: message,
   });
 };
@@ -103,12 +102,21 @@ exports.postSignup = (req, res, next) => {
         })
         .then((result) => {
           res.redirect("/");
-          return transporter.sendMail({
-            to: email,
-            from: "noreply@Node-complete.com",
-            subject: "Sign Succeeded",
-            html: "<h1>Your sign up successfully done</h1>",
-          });
+          return transporter.sendMail(
+            {
+              to: email,
+              from: "noreply@nodeComplete.com",
+              subject: "Sign Succeeded",
+              html: "<h1>Your sign up successfully done</h1>",
+            },
+            function (error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            }
+          );
         })
         .catch((err) => console.log(err));
     })
@@ -119,5 +127,20 @@ exports.postLogout = (req, res, next) => {
   req.session.destroy((err) => {
     console.log(err);
     res.redirect("/");
+  });
+};
+
+exports.getReset = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+
+  res.render("auth/reset", {
+    path: "/reset",
+    pageTitle: "Reset Password",
+    errorMessage: message,
   });
 };
