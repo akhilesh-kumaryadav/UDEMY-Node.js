@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: "khilgrinder10bill@gmail.com",
-    pass: "xsmtpsib-5b131831293fc86ae6df339f8214612b90da6db05ef0bf63edbd6b52e7d8e08e-xRfhEBcKsJ5vzXd7",
+    pass: "2rAnzOJ3ZL8xHEWa",
   },
 });
 
@@ -189,4 +189,28 @@ exports.postReset = (req, res, next) => {
       })
       .catch((err) => console.log(err));
   });
+};
+
+exports.getNewPassword = (req, res, next) => {
+  const token = req.param.token;
+  User.findOne({
+    resetToken: token,
+    //resetTokenExpiration: { $gt: Date.now().toString() },
+  })
+    .then((user) => {
+      let message = req.flash("error");
+      if (message.length > 0) {
+        message = message[0];
+      } else {
+        message = null;
+      }
+
+      res.render("auth/new-password", {
+        path: "/new-password",
+        pageTitle: "New Password",
+        errorMessage: message,
+        userId: user._id.toString(),
+      });
+    })
+    .catch((err) => console.log(err));
 };
