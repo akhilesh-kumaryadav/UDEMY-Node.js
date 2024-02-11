@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   auth: {
     user: "khilgrinder10bill@gmail.com",
-    pass: "xsmtpsib-5b131831293fc86ae6df339f8214612b90da6db05ef0bf63edbd6b52e7d8e08e-LvyB9tQZsr4n6YJp",
+    pass: "xsmtpsib-5b131831293fc86ae6df339f8214612b90da6db05ef0bf63edbd6b52e7d8e08e-xRfhEBcKsJ5vzXd7",
   },
 });
 
@@ -159,6 +159,7 @@ exports.postReset = (req, res, next) => {
       .then((user) => {
         if (!user) {
           req.flash("error", "No account with email found!!!");
+          return res.redirect("/reset");
         }
 
         user.resetToken = token;
