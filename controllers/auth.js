@@ -86,11 +86,11 @@ exports.postSignup = (req, res, next) => {
   const confirmPassword = req.body.confirmPassword;
   const errors = exValidatorResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors.array());
+    //console.log(errors.array());
     return res.status(422).render("auth/signup", {
       path: "/signup",
       pageTitle: "Signup",
-      errorMessage: errors.array(),
+      errorMessage: errors.array()[0].msg,
     });
   }
 
