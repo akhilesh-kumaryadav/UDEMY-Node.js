@@ -31,6 +31,17 @@ router.post(
       )
       .isLength({ min: 5 })
       .isAlphanumeric(),
+    expValidator
+      .body(
+        "confirmPassword",
+        "Please enter a password with only numbers and text , also atleast 5 characters"
+      )
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error("Passwords have to match");
+        }
+        return true;
+      }),
   ],
   authController.postSignup
 );
