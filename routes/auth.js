@@ -13,16 +13,25 @@ router.post("/login", authController.postLogin);
 
 router.post(
   "/signup",
-  expValidator
-    .check("email")
-    .isEmail()
-    .withMessage("Please enter a valid email.")
-    .custom((value, { req }) => {
-      if (value === "admin@admin.com") {
-        throw new Error("This email address is forbidden");
-      }
-      return true;
-    }),
+  [
+    expValidator
+      .check("email")
+      .isEmail()
+      .withMessage("Please enter a valid email.")
+      .custom((value, { req }) => {
+        if (value === "admin@admin.com") {
+          throw new Error("This email address is forbidden");
+        }
+        return true;
+      }),
+    expValidator
+      .body(
+        "password",
+        "Please enter a password with only numbers and text , also atleast 5 characters"
+      )
+      .isLength({ min: 5 })
+      .isAlphanumeric(),
+  ],
   authController.postSignup
 );
 
