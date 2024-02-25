@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const mongoose = require("mongoose");
 const exValidatorResult = require("express-validator").validationResult;
 
 exports.getAddProduct = (req, res, next) => {
@@ -24,9 +25,9 @@ exports.postAddProduct = (req, res, next) => {
 
   const errors = exValidatorResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render("admin/add-product", {
+    return res.status(422).render("admin/edit-product", {
       pageTitle: "Add Product",
-      path: "/admin/edit-product",
+      path: "/admin/add-product",
       editing: false,
       hasError: true,
       product: {
@@ -41,6 +42,7 @@ exports.postAddProduct = (req, res, next) => {
   }
 
   const product = new Product({
+    _id: new mongoose.Types.ObjectId("65b64a6631b1c27c392158d5"),
     title: title,
     price: price,
     description: description,
@@ -53,7 +55,23 @@ exports.postAddProduct = (req, res, next) => {
       console.log("Created Product");
       res.redirect("/admin/products");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      res.redirect("/500");
+      // return res.status(500).render("admin/edit-product", {
+      //   pageTitle: "Add Product",
+      //   path: "/admin/add-product",
+      //   editing: false,
+      //   hasError: true,
+      //   product: {
+      //     title: title,
+      //     price: price,
+      //     description: description,
+      //     imageUrl: imageUrl,
+      //   },
+      //   errorMessage: "Database opration failed. Please try again!!!",
+      //   validationErrors: [],
+      // });
+    });
 };
 
 exports.getEditProduct = (req, res, next) => {
